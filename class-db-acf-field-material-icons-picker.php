@@ -53,10 +53,10 @@ class db_acf_field_material_icons_picker extends \acf_field {
 	/**
 	 * Génère le HTML d’une icône Material.
 	 *
-	 * @param string $icon_name Nom de l’icône (ex: 'menu', 'face', etc.).
-	 * @param string $style     Style de l’icône ('filled', 'outlined', 'rounded', 'sharp', 'two-tone').
-	 * @param array  $attrs     Attributs HTML supplémentaires (ex: ['class' => 'my-class', 'aria-hidden' => 'true']).
-	 * @return string           HTML complet de l’icône.
+	 * @param string $icon_name Name of the Material icon (e.g., 'home', 'menu')
+	 * @param string $style     Style : 'filled', 'outlined', 'rounded', 'sharp' ou 'two-tone'.
+	 * @param array  $attrs     Attributes HTML optional (ex: ['class' => 'my-class', 'aria-hidden' => 'true']).
+	 * @return string           Full html.
 	 */
 	public static function get_material_icon_html(string $icon_name, string $style = 'filled', array $attrs = []): string {
 		$base_class = 'material-icons' . ($style !== 'filled' ? '-' . $style : '');
@@ -73,11 +73,11 @@ class db_acf_field_material_icons_picker extends \acf_field {
 	}
 
 	/**
-	 * Affiche une icône Material.
+	 *Returns material icon.
 	 *
-	 * @param string $icon_name Nom de l’icône.
-	 * @param string $style     Style de l’icône.
-	 * @param array  $attrs     Attributs HTML.
+	 * @param string $icon_name  Name of the Material icon
+	 * @param string $style      Style
+	 * @param array  $attrs      Attributes
 	 */
 	public static function render_material_icon(string $icon_name, string $style = 'filled', array $attrs = []): void {
 		echo self::get_material_icon_html($icon_name, $style, $attrs);
@@ -145,9 +145,6 @@ class db_acf_field_material_icons_picker extends \acf_field {
 		/**
 		 * Defaults for your custom user-facing settings for this field type.
 		 */
-		// $this->defaults = array(
-		// 	'font_size'	=> 14,
-		// );
 		$this->defaults = [];
 
 		/**
@@ -206,71 +203,28 @@ class db_acf_field_material_icons_picker extends \acf_field {
 
 				$data = [];
 
-				/*
 				foreach ($styles as $style => $filename) {
-						$url = "https://raw.githubusercontent.com/google/material-design-icons/master/font/$filename";
-						$content = @file_get_contents($url);
+					$url = "https://raw.githubusercontent.com/google/material-design-icons/master/font/$filename";
+					$response = wp_remote_get($url);
 
-						// if (is_wp_error($content)) {
-						// 		error_log("Erreur lors du téléchargement de $url : " . $response->get_error_message());
-						// 		continue;
-						// }
+					if (is_wp_error($response)) {
+							error_log("Erreur lors du téléchargement de $url : " . $response->get_error_message());
+							continue;
+					}
 
-						if (!$content) continue;
+					$content = wp_remote_retrieve_body($response);
+					if (!$content) continue;
 
-						$lines = explode("\n", trim($content));
-						$names = array_map(function ($line) {
-								return explode(' ', $line)[0];
-						}, $lines);
+					$lines = explode("\n", trim($content));
+					$names = array_map(function ($line) {
+							return explode(' ', $line)[0];
+					}, $lines);
 
-						$data[$style] = $names;
+					// Remove duplicates and sort
+					$names = array_unique($names);
+					sort($names);
 
-						// Supprime les doublons et trie
-						// $names = array_unique($names);
-						// sort($names);
-
-						// $data[$style] = array_values($names);
-				}
-
-				$path = plugin_dir_path(__FILE__) . 'src/material-icons-selector/icons.json';
-				file_put_contents($path, json_encode($data, JSON_PRETTY_PRINT | JSON_UNESCAPED_UNICODE));
-
-				// $json = json_encode($data, JSON_PRETTY_PRINT | JSON_UNESCAPED_UNICODE);
-				// if (!$json) return false;
-
-				// $relative_path = 'assets/icons.json';
-				// $path = plugin_dir_path(__FILE__) . $relative_path;
-
-				// // Crée le dossier s'il n'existe pas
-				// wp_mkdir_p(dirname($path));
-
-				// file_put_contents($path, $json);
-
-				// return $relative_path;
-				*/
-
-				foreach ($styles as $style => $filename) {
-						$url = "https://raw.githubusercontent.com/google/material-design-icons/master/font/$filename";
-						$response = wp_remote_get($url);
-
-						if (is_wp_error($response)) {
-								error_log("Erreur lors du téléchargement de $url : " . $response->get_error_message());
-								continue;
-						}
-
-						$content = wp_remote_retrieve_body($response);
-						if (!$content) continue;
-
-						$lines = explode("\n", trim($content));
-						$names = array_map(function ($line) {
-								return explode(' ', $line)[0];
-						}, $lines);
-
-						// Supprime les doublons et trie
-						$names = array_unique($names);
-						sort($names);
-
-						$data[$style] = array_values($names);
+					$data[$style] = array_values($names);
 				}
 
 				$json = json_encode($data, JSON_PRETTY_PRINT | JSON_UNESCAPED_UNICODE);
@@ -279,7 +233,7 @@ class db_acf_field_material_icons_picker extends \acf_field {
 				$relative_path = 'assets/icons.json';
 				$path = plugin_dir_path(__FILE__) . $relative_path;
 
-				// Crée le dossier s'il n'existe pas
+				// Creates the folder if does not exist
 				wp_mkdir_p(dirname($path));
 
 				file_put_contents($path, $json);
@@ -299,10 +253,10 @@ class db_acf_field_material_icons_picker extends \acf_field {
 	 * @param array $field
 	 * @return void
 	 */
-	public function render_field_settings( $field ) {
+		public function render_field_settings( $field ) {
 		/*
 		 * Repeat for each setting you wish to display for this field type.
-		 * // Ajoute des options dans l’interface ACF si nécessaire
+		 * 
 		 */
 		// acf_render_field_setting(
 		// 	$field,
@@ -361,7 +315,7 @@ class db_acf_field_material_icons_picker extends \acf_field {
 		$field_style = esc_attr($field['value']['style'] ?? 'filled');
 		$field_name = esc_attr($field['name']);
 
-		// Liste des styles disponibles, extraite dynamiquement de icons.json
+		// List of available styles, dynamically extracted from icons.json
 		$available_styles = [];
 		foreach (self::$enqueued_styles as $key => $_) {
 			$available_styles[$key] = ucfirst(str_replace('-', ' ', $key));
@@ -390,25 +344,18 @@ class db_acf_field_material_icons_picker extends \acf_field {
 					}
 
 				echo '<div class="icon-preview">';
-						// echo '<strong>Choix de l\'icon :</strong> ';
-						
-						// Aperçu déclencheur
+						// Trigger preview
 						echo '<div class="icon-preview-toggle">';
-								echo '<span class="icon-preview-icon ' . esc_html($has_icon ? $style_class : 'material-icons icon-preview-icon-add') . '" data-style="' . esc_attr($field_style) . '">' . esc_html($field_icon ?: 'add') . '</span>';
-								
+								echo '<span class="icon-preview-icon ' . esc_html($has_icon ? $style_class : 'material-icons icon-preview-icon-add') . '" data-style="' . esc_attr($field_style) . '">' . esc_html($field_icon ?: 'add') . '</span>';								
 						echo '</div>';
 
-						
-
-						// 🧹 Bouton "effacer"
+						// 
 						echo '<button type="button" class="icon-clear-button" title="Effacer" style="display: ' . ($has_icon ? 'inline-block' : 'none') . ';">✕</button>';
 				echo '</div>';
 
-				// 🔽 Popover caché au début
+				// Popover 
 				echo '<div class="acf-icon-popover" style="display:none;">';
-				
-
-						// Onglets
+						// Tabs
 						echo '<div class="acf-icon-tabs">';
 						foreach ($available_styles as $style_key => $label) {
 								$active = ($style_key === $field_style) ? 'active' : '';
@@ -417,15 +364,12 @@ class db_acf_field_material_icons_picker extends \acf_field {
 						echo '</div>';
 
 
-						// 🧱 Grille des icônes
+						// Icon grid
 						foreach ($available_styles as $style_key => $label) {
-
 								$active = ($style_key === $field_style) ? 'active' : '';
-
 								
 								echo '<div class="icon-grid grid-' . esc_attr($style_key) . ' ' . $active . '" data-style="' . esc_attr($style_key) . '">';
-										
-										// 🔍 Champ de recherche
+										// searchbar
 										echo '<div class="acf-material-icon-search-wrap"><span class="acf-material-icon-search-icon material-icons-outlined">search</span><input type="search" class="acf-material-icon-search" placeholder="Rechercher une icône dans ' . esc_attr($label) . '…"></div>';
 										
 										echo '<div class="acf-material-icons-grid">';
@@ -447,10 +391,10 @@ class db_acf_field_material_icons_picker extends \acf_field {
 								echo '</div>';
 						}
 				echo '</div>'; // end popover
-
-		// Champs masqués
-		echo '<input type="hidden" name="' . $field_name . '[icon]" value="' . esc_attr($field_icon) . '" class="material-icon-value">';
-		echo '<input type="hidden" name="' . $field_name . '[style]" value="' . esc_attr($field_style) . '" class="material-icon-style">';
+		
+			// Hidden fields
+			echo '<input type="hidden" name="' . $field_name . '[icon]" value="' . esc_attr($field_icon) . '" class="material-icon-value">';
+			echo '<input type="hidden" name="' . $field_name . '[style]" value="' . esc_attr($field_style) . '" class="material-icon-style">';
 
 		echo '</div>';
 		?>
@@ -468,7 +412,7 @@ class db_acf_field_material_icons_picker extends \acf_field {
 	public function input_admin_enqueue_scripts() {
 		$version = $this->env['version'];
 
-		self::register_icon_fonts(); // charge les polices
+		self::register_icon_fonts();
 
 		wp_register_script(
 			'db-material-icons-picker',

@@ -16,7 +16,6 @@ if ( ! defined( 'ABSPATH' ) ) {
 	exit;
 }
 
-
 add_action('acf/include_field_types', function($version = false) {
     require_once __DIR__ . '/class-db-acf-field-material-icons-picker.php';
 		acf_register_field_type( 'db_acf_field_material_icons_picker' );
@@ -26,13 +25,13 @@ add_action('wp_enqueue_scripts', ['db_acf_field_material_icons_picker', 'registe
 
 if (!function_exists('render_material_icon')) {
 	/**
-	 * Affiche une icône Material (fonction globale utilisable dans tout thème/plugin).
+	 * Displays a Material icon (global function usable in any theme/plugin).
 	 *
 	 * @see db_acf_field_material_icons_picker::render_material_icon()
 	 *
-	 * @param string $icon_name Nom de l’icône Material (ex: 'home', 'favorite', 'menu'…).
-	 * @param string $style     Style : 'filled', 'outlined', 'rounded', 'sharp' ou 'two-tone'.
-	 * @param array  $attrs     Attributs HTML supplémentaires (class, aria-hidden, etc.).
+	 * @param string $icon_name    Name of the Material icon (e.g., 'home', 'menu')
+	 * @param string $style        Style : 'filled', 'outlined', 'rounded', 'sharp' ou 'two-tone'.
+	 * @param array  $attrs        Attributes HTML ptional (class, aria-hidden, etc.).
 	 */
 	function render_material_icon(string $icon_name, string $style = 'filled', array $attrs = []): void {
 		if (class_exists('db_acf_field_material_icons_picker')) {
@@ -43,14 +42,14 @@ if (!function_exists('render_material_icon')) {
 
 if (!function_exists('get_material_icon_html')) {
 	/**
-	 * Retourne le HTML d’une icône Material (fonction globale).
+	 * Returns the HTML string of the icon (global function).
 	 *
 	 * @see db_acf_field_material_icons_picker::get_material_icon_html()
 	 *
-	 * @param string $icon_name Nom de l’icône.
-	 * @param string $style     Style.
-	 * @param array  $attrs     Attributs HTML.
-	 * @return string HTML <span> complet.
+	 * @param string $icon_name   Name of the Material icon
+	 * @param string $style       Style.
+	 * @param array  $attrs       Attributs HTML.
+	 * @return string HTML <span> 
 	 */
 	function get_material_icon_html(string $icon_name, string $style = 'filled', array $attrs = []): string {
 		if (class_exists('db_acf_field_material_icons_picker')) {
