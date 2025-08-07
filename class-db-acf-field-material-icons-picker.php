@@ -59,7 +59,13 @@ class db_acf_field_material_icons_picker extends \acf_field {
 	 * @return string           Full html.
 	 */
 	public static function get_material_icon_html(string $icon_name, string $style = 'filled', array $attrs = []): string {
-		$base_class = 'material-icons' . ($style !== 'filled' ? '-' . $style : '');
+		if($style == 'filled') {
+			$base_class = 'material-icons';
+		}elseif($field_style == 'rounded') {
+			$base_class = 'material-icons-round';
+		}else{
+			$base_class = 'material-icons-' . $style . '';
+		}
 		$custom_classes = $attrs['class'] ?? '';
 		$full_class = trim($base_class . ' ' . $custom_classes);
 		$attrs['class'] = $full_class;
