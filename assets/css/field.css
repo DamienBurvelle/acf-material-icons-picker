@@ -1,0 +1,218 @@
+/**
+ * Included when fields of this type are rendered for editing by publishers.
+ */
+ .acf-field-material-icons-picker .setting-font-size {
+    color: green;
+}
+.acf-field-material-icon{
+  max-width: 600px;
+}
+
+.acf-material-icons-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(50px, 1fr));
+  gap: 10px;
+  max-height: 300px;
+  overflow-y: auto;
+  border: 1px solid rgba(0,0,0,.15);  
+  padding: 10px;
+  background: #fff;
+  /* border-radius: 5px; */
+}
+
+.material-icon-option {
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 50px;
+  border: 2px solid transparent;
+  border-radius: 4px;
+  transition: all 0.2s ease-in-out;
+}
+
+.material-icon-option:hover {
+  background-color: #f0f0f0;
+}
+
+.material-icon-option.selected {
+  border-color: #007cba;
+  background-color: #e6f0fb;
+}
+
+
+.acf-material-icon-search-wrap{
+  position: relative;
+
+  + .acf-material-icons-grid{
+    border-top-width: 0;
+  }
+}
+
+.acf-material-icon-search-icon{
+  position: absolute;
+  top: 3px;
+  left: 5px;
+}
+
+.acf-icon-popover .acf-material-icon-search-wrap .acf-material-icon-search {
+/* .acf-material-icon-search { */
+  /* border: 1px solid #ccc; */
+  /* border-radius: 4px; */
+  font-size: 14px;
+  /* box-sizing: border-box; */
+  /* margin-bottom:8px; */
+  /* width:100%; */
+  /* padding:6px; */
+  padding-left: 32px;
+  border-radius: 0;
+}
+
+.acf-icon-popover{
+  display: flex;
+  flex-direction: column;
+
+  position: absolute;
+  top: 100%;
+  left: 0px;
+  z-index: 9999;
+  background: rgb(255, 255, 255);
+  border: 1px solid rgb(221, 221, 221);
+  padding: 12px;
+  box-shadow: rgba(0, 0, 0, 0.15) 0px 2px 6px;
+  width: 100%;
+  max-height: 300px;
+  overflow: auto;
+max-width: min(500px, 80dvw);
+}
+
+
+/* .acf-icon-tabs {
+  display: flex;
+  margin-bottom: 10px;
+  gap: 6px;
+} */
+
+/* .tab-button {
+  padding: 6px 10px;
+  border: 1px solid #ccc;
+  background: #f9f9f9;
+  cursor: pointer;
+  border-radius: 3px;
+}
+
+.tab-button.active {
+  background: #007cba;
+  color: #fff;
+  font-weight: bold;
+  border-color: #007cba;
+} */
+
+.acf-icon-tabs{
+  display: flex;
+  gap: .5em;
+  margin: 0;
+  list-style: none;
+  position: relative;
+  padding: 0;
+  border-bottom: 0;
+  overflow: auto;
+  flex: 1 0 auto;
+}
+
+.tab-button{
+  cursor: pointer;
+  padding: 5px 10px;
+  display: block;
+  color: #555;
+  font-size: 14px;
+  font-weight: 600;
+  line-height: 24px;
+  border: #ccc solid 1px;
+  border-bottom: 0 none;
+  text-decoration: none;
+  background: #e5e5e5;
+  transition: none;
+  white-space: nowrap;
+}
+
+.tab-button.active {
+  /* background: #f1f1f1; */
+  background: #fff;
+  color: #000;
+  padding-bottom: 6px;
+  margin-bottom: -1px;
+  position: relative;
+  z-index: 1;
+}
+
+.icon-grid {
+  display: none;
+  /* grid-template-columns: repeat(auto-fill, minmax(50px, 1fr)); */
+  /* gap: 8px; */
+  /* border: 1px solid #ccc; */
+  /* border-radius: 4px; */
+  /* padding: 10px; */
+  /* max-height: 300px; */
+  overflow-y: auto;
+}
+
+.icon-grid.active {
+  display: grid;
+}
+
+.icon-preview-toggle{
+  cursor: pointer;
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    width: 110px;
+    height: 110px;
+    justify-content: center;
+  
+}
+.icon-preview{
+  /* display: flex;
+  align-items: center;
+  gap: 10px; */
+  display: inline-block;
+  position: relative;
+}
+.icon-preview-icon{
+  font-size: 110px;
+}
+.icon-clear-button{
+
+  display: inline-block;
+    border: none;
+    cursor: pointer;
+    color: rgb(170, 0, 0);
+    font-size: 16px;
+    position: absolute;
+    right: -5px;
+    top: -5px;
+    background: #ffffff;
+    border-radius: 50%;
+    border: 1px solid black;
+    aspect-ratio: 1;
+}
+.icon-clear-button:hover{
+  background-color: red;
+  color: white;
+}
+
+.icon-preview-icon-add{
+  width: 85px;
+  height: 85px;
+  background: #f0f0f0;
+  font-size: 38px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 10px;
+}
+
+
+.icon-preview-icon-add:hover{
+  background: #e5e5e5;
+}
