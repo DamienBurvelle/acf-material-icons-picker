@@ -1,36 +1,9 @@
-/**
- * Included when material_icons_picker fields are rendered for editing by publishers.
- */
-//  ( function( $ ) {
-// 	function initialize_field( $field ) {
-// 		/**
-// 		 * $field is a jQuery object wrapping field elements in the editor.
-// 		 */
-// 		console.log( 'material_icons_picker field initialized' );
-// 	}
-
-// 	if( typeof acf.add_action !== 'undefined' ) {
-// 		/**
-// 		 * Run initialize_field when existing fields of this type load,
-// 		 * or when new fields are appended via repeaters or similar.
-// 		 */
-// 		acf.add_action( 'ready_field/type=material_icons_picker', initialize_field );
-// 		acf.add_action( 'append_field/type=material_icons_picker', initialize_field );
-// 	}
-// } )( jQuery );
-
-
 jQuery( function( $ ) {
-  
-  console.log( 'material_icons_picker field initialized' );
   $('.acf-material-icon-wrapper').each(function () {
-    console.log('fez');
-
       const $wrapper = $(this);
       const $iconInput = $wrapper.find('.material-icon-value');
       const $styleInput = $wrapper.find('.material-icon-style');
       const $popover = $wrapper.find('.acf-icon-popover');
-
 
       function updatePreview(icon, style) {
         const styleSuffix = (style !== 'filled') ? '-' + style : '';
@@ -51,7 +24,7 @@ jQuery( function( $ ) {
         }
     }
 
-    // 🟣 Ouvrir/Fermer le popover
+    // Open/Close popover
     $wrapper.find('.icon-preview-toggle').on('click', function (e) {
       e.stopPropagation();
       $('.acf-icon-popover').not($popover).hide(); // Ferme les autres
@@ -74,7 +47,7 @@ jQuery( function( $ ) {
         $styleInput.val(style);
       });
 
-    // Sélection d’icône
+    // Icon selection
     $wrapper.find('.material-icon-option').on('click', function () {
       const $this = $(this);
       const icon = $this.data('icon');
@@ -95,7 +68,7 @@ jQuery( function( $ ) {
       $popover.hide(); // Ferme après sélection     
     });
 
-    // 🔍 Recherche dans chaque grille
+    // Search in each grid
     $wrapper.find('.acf-material-icon-search').on('input', function () {
       const term = $(this).val().toLowerCase();
       const $grid = $(this).closest('.icon-grid');
@@ -109,33 +82,33 @@ jQuery( function( $ ) {
 
     // clear button
     $wrapper.find('.icon-clear-button').on('click', function (e) {
-      e.stopPropagation(); // empêche d’ouvrir le popover
+      e.stopPropagation(); // prevents popover
   
       // Reset values
       $iconInput.val('');
       $styleInput.val('filled');
   
-      // Retire toute sélection dans les grilles
+      // Removes any selection in the grids
       $wrapper.find('.material-icon-option').removeClass('selected');
   
-      // Met à jour l'aperçu
+      // Updates preview
       updatePreview('', 'filled');
 
       $(this).hide();
   
-      // Réinitialise les tabs et grilles
+      // Resets tabs and grids
       $wrapper.find('.tab-button').removeClass('active');
       $wrapper.find('.tab-button[data-style="filled"]').addClass('active');
       $wrapper.find('.icon-grid').removeClass('active');
       $wrapper.find('.grid-filled').addClass('active');
   });
 
-    // ⛔ Fermer popover si clic à l’extérieur
+    // Close popover
     $(document).on('click', function () {
         $popover.hide();
     });
 
-    // Empêcher fermeture sur clic interne
+    // but not inside
     $popover.on('click', function (e) {
         e.stopPropagation();
     });
