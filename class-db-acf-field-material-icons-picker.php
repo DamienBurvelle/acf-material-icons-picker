@@ -61,7 +61,7 @@ class db_acf_field_material_icons_picker extends \acf_field {
 	public static function get_material_icon_html(string $icon_name, string $style = 'filled', array $attrs = []): string {
 		if($style == 'filled') {
 			$base_class = 'material-icons';
-		}elseif($field_style == 'rounded') {
+		}elseif($style == 'rounded') {
 			$base_class = 'material-icons-round';
 		}else{
 			$base_class = 'material-icons-' . $style . '';
@@ -120,12 +120,12 @@ class db_acf_field_material_icons_picker extends \acf_field {
 		 *
 		 * For public-facing UI. May contain spaces.
 		 */
-		$this->label = __( 'material-icons-picker', 'material-icons-picker' );
+		$this->label = __( 'Material Icons selector', 'material-icons-picker' );
 
 		/**
 		 * The category the field appears within in the field type picker.
 		 */
-		$this->category = 'choice'; // basic | content | choice | relational | jquery | layout | CUSTOM GROUP NAME
+		$this->category = 'advanced'; // basic | content | choice | relational | jquery | layout | CUSTOM GROUP NAME
 
 		/**
 		 * Field type Description.
@@ -320,6 +320,7 @@ class db_acf_field_material_icons_picker extends \acf_field {
 		$field_icon = esc_attr($field['value']['icon'] ?? '');
 		$field_style = esc_attr($field['value']['style'] ?? 'filled');
 		$field_name = esc_attr($field['name']);
+		$field_key = esc_attr($field['key']);
 
 		// List of available styles, dynamically extracted from icons.json
 		$available_styles = [];
@@ -365,7 +366,7 @@ class db_acf_field_material_icons_picker extends \acf_field {
 						echo '<div class="acf-icon-tabs">';
 						foreach ($available_styles as $style_key => $label) {
 								$active = ($style_key === $field_style) ? 'active' : '';
-								echo '<button class="tab-button ' . $active . '" data-style="' . esc_attr($style_key) . '">' . esc_html($label) . '</button>';
+								echo '<button type="button" class="tab-button ' . $active . '" data-style="' . esc_attr($style_key) . '">' . esc_html($label) . '</button>';
 						}
 						echo '</div>';
 
